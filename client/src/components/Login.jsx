@@ -2,10 +2,13 @@ import React, { useState, useContext } from "react";
 import { Link, Navigate } from "react-router-dom";
 import axios from "../Axios/axios.js";
 import TokenContext from "../context/TokenContext.js";
+
+
 function Login() {
   const [formData, setFormData] = useState({});
   const { userToken, tokenDispatch, userDispatch } = useContext(TokenContext);
   const [error, setError] = useState();
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -13,8 +16,8 @@ function Login() {
       tokenDispatch({ type: "SET_TOKEN", payload: result.data.token });
       userDispatch({ type: "SET_USER", payload: result.data.user });
       localStorage.setItem("authToken", JSON.stringify(result.data.token));
-    } catch (error) {
-      console.log(error);
+    } catch (err) {
+      console.log(err);
       setError({ message: error.response.data.message });
     }
   };
@@ -23,6 +26,8 @@ function Login() {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
+
+  
   return (
     <div>
       {userToken && <Navigate to="/" />}
