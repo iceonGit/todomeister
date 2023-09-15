@@ -16,8 +16,8 @@ function Login() {
       tokenDispatch({ type: "SET_TOKEN", payload: result.data.token });
       userDispatch({ type: "SET_USER", payload: result.data.user });
       localStorage.setItem("authToken", JSON.stringify(result.data.token));
-    } catch (err) {
-      // console.log(err);
+    } catch (error) {
+      // console.log(error);
       setError({ message: error.response.data.message });
     }
   };
